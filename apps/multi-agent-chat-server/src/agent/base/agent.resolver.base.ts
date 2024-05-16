@@ -137,4 +137,12 @@ export class AgentResolverBase {
       throw error;
     }
   }
+
+  @graphql.Mutation(() => String)
+  async AgentCteate(
+    @graphql.Args()
+    args: string
+  ): Promise<string> {
+    return this.service.AgentCteate(args);
+  }
 }

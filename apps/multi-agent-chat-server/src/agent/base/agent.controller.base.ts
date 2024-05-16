@@ -189,4 +189,21 @@ export class AgentControllerBase {
       throw error;
     }
   }
+
+  @common.Post("/CreateAgent")
+  @swagger.ApiOkResponse({
+    type: String,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async AgentCteate(
+    @common.Param()
+    params: string
+  ): Promise<string> {
+    return this.service.AgentCteate(params);
+  }
 }

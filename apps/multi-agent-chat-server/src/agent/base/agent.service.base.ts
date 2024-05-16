@@ -44,4 +44,7 @@ export class AgentServiceBase {
   ): Promise<PrismaAgent> {
     return this.prisma.agent.delete(args);
   }
+  async AgentCteate(args: string): Promise<string> {
+    throw new Error("Not implemented");
+  }
 }
