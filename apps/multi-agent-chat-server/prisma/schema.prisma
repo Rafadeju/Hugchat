@@ -1,0 +1,62 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  pasword   String?
+  updatedAt DateTime @updatedAt
+  username  String?
+}
+
+model Conversation {
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  messages  Message[]
+  title     String?
+  updatedAt DateTime  @updatedAt
+}
+
+model Agent {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  authorType     EnumMessageAuthorType?
+  content        String?
+  conversation   Conversation?          @relation(fields: [conversationId], references: [id])
+  conversationId String?
+  createdAt      DateTime               @default(now())
+  id             String                 @id @default(cuid())
+  timestamp      DateTime?
+  updatedAt      DateTime               @updatedAt
+}
+
+model Authentication {
+  createdAt              DateTime                  @default(now())
+  id                     String                    @id @default(cuid())
+  password               String?
+  roles                  EnumAuthenticationRoles[]
+  supertokensIdFieldName String?
+  updatedAt              DateTime                  @updatedAt
+  username               String?
+}
+
+enum EnumMessageAuthorType {
+  Option1
+}
+
+enum EnumAuthenticationRoles {
+  Option1
+}
